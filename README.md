@@ -1,5 +1,8 @@
 # todo_app
 
+Tapşırıqlarınızı və Qeydlərinizi saxlamaq, nəzarət etmək üçün tətbiq.
+An application for storing and monitoring your assignments and notes.
+
 A new Flutter application.
 
 ## Getting Started
