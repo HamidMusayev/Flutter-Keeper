@@ -1,4 +1,4 @@
-# todo_app
+# Keeper
 
 Tapşırıqlarınızı və Qeydlərinizi saxlamaq, nəzarət etmək üçün tətbiq.
 An application for storing and monitoring your assignments and notes.
