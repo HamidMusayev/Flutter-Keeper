@@ -1,9 +1,7 @@
 # Keeper
-
-Tapşırıqlarınızı və Qeydlərinizi saxlamaq, nəzarət etmək üçün tətbiq.
 An application for storing and monitoring your assignments and notes.
 
-A new Flutter application.
+Tapşırıqlarınızı və Qeydlərinizi saxlamaq, nəzarət etmək üçün tətbiq.
 
-## Getting Started
-![Screens](https://cdn.pixabay.com/photo/2020/06/29/11/58/sheep-5352474_1280.jpg)
+# Screens
+![Screenshot](https://drive.google.com/file/d/1tar46hMyLIE_YxXN8CXMWX1khpBcyn3N/view?usp=sharing)
