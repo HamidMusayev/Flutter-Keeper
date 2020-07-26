@@ -1,4 +1,4 @@
-# Keeper - SQFLITE
+# Keeper - SQFlite
 An application for storing and monitoring your assignments and notes.
 
 Tapşırıqlarınızı və Qeydlərinizi saxlamaq, nəzarət etmək üçün tətbiq.
