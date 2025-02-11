@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/data/db_helper_task.dart';
-import 'package:todo_app/models/task.dart';
+import 'package:todo_app/data/task_db_helper.dart';
+import 'package:todo_app/data/models/task.dart';
 import 'package:todo_app/screens/add_task_page.dart';
 
 class TaskPage extends StatefulWidget {
@@ -11,7 +11,7 @@ class TaskPage extends StatefulWidget {
 }
 
 class _TaskPageState extends State {
-  var dbTask = DbHelperTask();
+  var dbTask = TaskDbHelper();
   int taskCount = 0;
   List<Task> tasks;
 

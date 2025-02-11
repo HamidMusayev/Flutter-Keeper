@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/data/db_helper_event.dart';
-import 'package:todo_app/models/event.dart';
+import 'package:todo_app/data/event_db_helper.dart';
+import 'package:todo_app/data/models/event.dart';
 import 'package:todo_app/screens/add_event_page.dart';
 import 'package:todo_app/screens/edit_event_page.dart';
 
@@ -10,7 +10,7 @@ class EventPage extends StatefulWidget {
 }
 
 class _EventPageState extends State<EventPage> {
-  var dbEvent = DbHelperEvent();
+  var dbEvent = EventDbHelper();
   int eventCount = 0;
   List<Event> events;
 

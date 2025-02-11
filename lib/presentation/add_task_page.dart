@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/data/task_db_helper.dart';
+import 'package:todo_app/data/models/task.dart';
 import 'package:intl/intl.dart';
-import 'package:todo_app/data/db_helper_event.dart';
-import 'package:todo_app/models/event.dart';
 
-class AddEventPage extends StatefulWidget {
+class AddTaskPage extends StatefulWidget {
   @override
-  _AddEventPageState createState() => _AddEventPageState();
+  State<StatefulWidget> createState() {
+    return _AddTaskPageState();
+  }
 }
 
-class _AddEventPageState extends State<AddEventPage> {
-  var dbEvent = DbHelperEvent();
-  String selectedDate = "Tarix seçin";
-  String selectedTime = "Vaxt seçin";
+class _AddTaskPageState extends State {
+  var dbTask = TaskDbHelper();
+  String selectedDate = "Tarixi seçin";
 
-  var eventTxt = TextEditingController();
-  var descriptionTxt = TextEditingController();
+  var taskTxt = TextEditingController();
 
   Future _pickDate() async {
     DateTime datepick = await showDatePicker(
@@ -26,17 +26,6 @@ class _AddEventPageState extends State<AddEventPage> {
       setState(() {
         selectedDate = DateFormat("dd-MM-yyyy").format(datepick);
       });
-  }
-
-  Future _pickTime() async {
-    TimeOfDay timepick = await showTimePicker(
-        context: context, initialTime: new TimeOfDay.now());
-    if (timepick != null) {
-      setState(() {
-        selectedTime =
-            timepick.hour.toString() + ":" + timepick.minute.toString();
-      });
-    }
   }
 
   @override
@@ -53,7 +42,7 @@ class _AddEventPageState extends State<AddEventPage> {
                   height: 24,
                 ),
                 Text(
-                  "Yeni hadisə",
+                  "Yeni tapşırıq",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
                 ),
                 Divider(
@@ -65,12 +54,9 @@ class _AddEventPageState extends State<AddEventPage> {
                 SizedBox(
                   height: 24,
                 ),
-                buildNameField(),
-                SizedBox(height: 12),
-                buildDescriptionField(),
+                buildTaskField(),
                 SizedBox(height: 12),
                 buildDateFiled(),
-                buildTimeField(),
                 SizedBox(
                   height: 24,
                 ),
@@ -86,24 +72,14 @@ class _AddEventPageState extends State<AddEventPage> {
     );
   }
 
-  Widget buildNameField() {
+  Widget buildTaskField() {
     return TextField(
-      controller: eventTxt,
+      controller: taskTxt,
+      maxLines: 2,
       decoration: InputDecoration(
           border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(12))),
-          labelText: "Hadisənin adı"),
-    );
-  }
-
-  Widget buildDescriptionField() {
-    return TextField(
-      controller: descriptionTxt,
-      maxLines: 5,
-      decoration: InputDecoration(
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(12))),
-          labelText: "Qeydlər"),
+          labelText: "Tapşırıq yazın"),
     );
   }
 
@@ -125,28 +101,10 @@ class _AddEventPageState extends State<AddEventPage> {
     );
   }
 
-  Widget buildTimeField() {
-    return FlatButton(
-      padding: EdgeInsets.zero,
-      onPressed: _pickTime,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 12.0),
-        child: Row(
-          children: <Widget>[
-            Icon(Icons.access_time,
-                color: Theme.of(context).accentColor, size: 30),
-            SizedBox(width: 12),
-            Text(selectedTime, style: TextStyle(fontSize: 14))
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget buildSaveButton() {
     return FlatButton(
         onPressed: () {
-          saveEvent();
+          saveTask();
         },
         child: Text("Yadda saxla"),
         color: Theme.of(context).accentColor,
@@ -161,7 +119,7 @@ class _AddEventPageState extends State<AddEventPage> {
         onPressed: () {
           Navigator.of(context).pop();
         },
-        child: Text("Ləğv et"),
+        child: Text("Bağla"),
         color: Colors.white,
         textColor: Theme.of(context).accentColor,
         shape: RoundedRectangleBorder(
@@ -169,12 +127,9 @@ class _AddEventPageState extends State<AddEventPage> {
         ));
   }
 
-  void saveEvent() async {
-    await dbEvent.insert(Event(
-        name: eventTxt.text,
-        description: descriptionTxt.text,
-        date: selectedDate,
-        time: selectedTime));
+  void saveTask() async {
+    await dbTask
+        .insert(Task(name: taskTxt.text, date: selectedDate, completed: 0));
     Navigator.pop(context, true);
   }
 }

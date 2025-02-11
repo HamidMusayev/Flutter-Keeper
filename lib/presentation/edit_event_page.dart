@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/data/db_helper_event.dart';
-import 'package:todo_app/models/event.dart';
+import 'package:todo_app/data/event_db_helper.dart';
+import 'package:todo_app/data/models/event.dart';
 
 class EditEventPage extends StatefulWidget {
   Event event;
@@ -16,7 +16,7 @@ class _EditEventPageState extends State<EditEventPage> {
 
   _EditEventPageState(this.event);
 
-  var dbEvent = DbHelperEvent();
+  var dbEvent = EventDbHelper();
   var nameTxt = TextEditingController();
   var descriptionTxt = TextEditingController();
 
