@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/data/db_helper_event.dart';
-import 'package:todo_app/models/event_model.dart';
+import 'package:todo_app/models/event.dart';
 
 class EditEventPage extends StatefulWidget {
   Event event;

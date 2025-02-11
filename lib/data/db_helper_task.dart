@@ -1,6 +1,6 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:todo_app/models/task_model.dart';
+import 'package:todo_app/models/task.dart';
 
 class DbHelperTask {
   Database _db;

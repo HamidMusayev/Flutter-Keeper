@@ -1,6 +1,6 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:todo_app/models/event_model.dart';
+import 'package:todo_app/models/event.dart';
 
 class DbHelperEvent {
   Database _db;

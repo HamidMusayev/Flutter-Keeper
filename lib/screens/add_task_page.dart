@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/data/db_helper_task.dart';
-import 'package:todo_app/models/task_model.dart';
+import 'package:todo_app/models/task.dart';
 import 'package:intl/intl.dart';
 
 class AddTaskPage extends StatefulWidget {
