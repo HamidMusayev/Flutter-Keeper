@@ -22,13 +22,7 @@ class _EventPageState extends State<EventPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: buildEventList(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: gotoEventAdd,
-        child: Icon(Icons.add),
-      ),
-    );
+    return buildEventList();
   }
 
   ListView buildEventList() {

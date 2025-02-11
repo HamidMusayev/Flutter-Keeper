@@ -22,13 +22,7 @@ class _TaskPageState extends State<TaskPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: buildTasksList(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: gotoTaskAdd,
-        child: Icon(Icons.add),
-      ),
-    );
+    return  buildTasksList();
   }
 
   ListView buildTasksList() {

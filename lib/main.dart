@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Keeper',
-      theme: ThemeData(primarySwatch: Colors.red, fontFamily: "Montserrat"),
+      theme: ThemeData(fontFamily: "Montserrat"),
       home: MyHomePage(),
     );
   }

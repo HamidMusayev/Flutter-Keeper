@@ -25,17 +25,19 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, "/add");
+        },
+        child: Icon(Icons.add),
+      ),
       body: Stack(
         children: [
-          Container(
-            height: 35,
-            color: Theme.of(context).colorScheme.secondary,
-          ),
           Positioned(
             right: 0,
             child: Text(
               currentDay,
-              style: TextStyle(fontSize: 200, color: Color(0x10000000)),
+              style: TextStyle(fontSize: 200, color: Colors.black12),
             ),
           ),
           _mainContent(context),
@@ -78,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
             context,
             "Tapşırıqlar",
             currentPage! < 0.5,
-            () => _pageController.previousPage(
+                () => _pageController.previousPage(
               duration: Duration(milliseconds: 500),
               curve: Curves.easeInOutExpo,
             ),
@@ -90,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
             context,
             "Hadisələr",
             currentPage! > 0.5,
-            () => _pageController.nextPage(
+                () => _pageController.nextPage(
               duration: Duration(milliseconds: 500),
               curve: Curves.easeInOutExpo,
             ),
@@ -102,20 +104,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _buildMaterialButton(BuildContext context, String text, bool isActive,
       VoidCallback onPressed) {
-    return MaterialButton(
+    return isActive
+        ? FilledButton(
       onPressed: onPressed,
       child: Text(text),
-      color: isActive ? Theme.of(context).colorScheme.secondary : Colors.white,
-      textColor:
-          isActive ? Colors.white : Theme.of(context).colorScheme.secondary,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(
-          color: isActive
-              ? Colors.transparent
-              : Theme.of(context).colorScheme.secondary,
-        ),
-      ),
+    )
+        : OutlinedButton(
+      onPressed: onPressed,
+      child: Text(text),
     );
   }
 
