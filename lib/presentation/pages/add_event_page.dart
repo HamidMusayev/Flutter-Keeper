@@ -1,20 +1,19 @@
+/*
 import 'package:flutter/material.dart';
-import 'package:todo_app/data/task_db_helper.dart';
-import 'package:todo_app/data/models/task.dart';
 import 'package:intl/intl.dart';
+import 'package:todo_app/data/models/event.dart';
 
-class AddTaskPage extends StatefulWidget {
+class AddEventPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return _AddTaskPageState();
-  }
+  _AddEventPageState createState() => _AddEventPageState();
 }
 
-class _AddTaskPageState extends State {
-  var dbTask = TaskDbHelper();
-  String selectedDate = "Tarixi seçin";
+class _AddEventPageState extends State<AddEventPage> {
+    String selectedDate = "Tarix seçin";
+  String selectedTime = "Vaxt seçin";
 
-  var taskTxt = TextEditingController();
+  var eventTxt = TextEditingController();
+  var descriptionTxt = TextEditingController();
 
   Future _pickDate() async {
     DateTime datepick = await showDatePicker(
@@ -26,6 +25,17 @@ class _AddTaskPageState extends State {
       setState(() {
         selectedDate = DateFormat("dd-MM-yyyy").format(datepick);
       });
+  }
+
+  Future _pickTime() async {
+    TimeOfDay timepick = await showTimePicker(
+        context: context, initialTime: new TimeOfDay.now());
+    if (timepick != null) {
+      setState(() {
+        selectedTime =
+            timepick.hour.toString() + ":" + timepick.minute.toString();
+      });
+    }
   }
 
   @override
@@ -42,7 +52,7 @@ class _AddTaskPageState extends State {
                   height: 24,
                 ),
                 Text(
-                  "Yeni tapşırıq",
+                  "Yeni hadisə",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
                 ),
                 Divider(
@@ -54,9 +64,12 @@ class _AddTaskPageState extends State {
                 SizedBox(
                   height: 24,
                 ),
-                buildTaskField(),
+                buildNameField(),
+                SizedBox(height: 12),
+                buildDescriptionField(),
                 SizedBox(height: 12),
                 buildDateFiled(),
+                buildTimeField(),
                 SizedBox(
                   height: 24,
                 ),
@@ -72,14 +85,24 @@ class _AddTaskPageState extends State {
     );
   }
 
-  Widget buildTaskField() {
+  Widget buildNameField() {
     return TextField(
-      controller: taskTxt,
-      maxLines: 2,
+      controller: eventTxt,
       decoration: InputDecoration(
           border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(12))),
-          labelText: "Tapşırıq yazın"),
+          labelText: "Hadisənin adı"),
+    );
+  }
+
+  Widget buildDescriptionField() {
+    return TextField(
+      controller: descriptionTxt,
+      maxLines: 5,
+      decoration: InputDecoration(
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(12))),
+          labelText: "Qeydlər"),
     );
   }
 
@@ -101,10 +124,28 @@ class _AddTaskPageState extends State {
     );
   }
 
+  Widget buildTimeField() {
+    return FlatButton(
+      padding: EdgeInsets.zero,
+      onPressed: _pickTime,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 12.0),
+        child: Row(
+          children: <Widget>[
+            Icon(Icons.access_time,
+                color: Theme.of(context).accentColor, size: 30),
+            SizedBox(width: 12),
+            Text(selectedTime, style: TextStyle(fontSize: 14))
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget buildSaveButton() {
     return FlatButton(
         onPressed: () {
-          saveTask();
+          saveEvent();
         },
         child: Text("Yadda saxla"),
         color: Theme.of(context).accentColor,
@@ -119,7 +160,7 @@ class _AddTaskPageState extends State {
         onPressed: () {
           Navigator.of(context).pop();
         },
-        child: Text("Bağla"),
+        child: Text("Ləğv et"),
         color: Colors.white,
         textColor: Theme.of(context).accentColor,
         shape: RoundedRectangleBorder(
@@ -127,9 +168,13 @@ class _AddTaskPageState extends State {
         ));
   }
 
-  void saveTask() async {
-    await dbTask
-        .insert(Task(name: taskTxt.text, date: selectedDate, completed: 0));
+  void saveEvent() async {
+    await dbEvent.insert(Event(
+        name: eventTxt.text,
+        description: descriptionTxt.text,
+        date: selectedDate,
+        time: selectedTime));
     Navigator.pop(context, true);
   }
 }
+*/

@@ -1,0 +1,6 @@
+include: package:lints/recommended.yaml
+
+linter:
+  rules:
+    comma_at_end_of_enum: true
+    prefer_trailing_comma: true

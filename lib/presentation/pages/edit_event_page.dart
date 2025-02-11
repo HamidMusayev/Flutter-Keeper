@@ -1,40 +1,32 @@
+/*
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:todo_app/data/event_db_helper.dart';
 import 'package:todo_app/data/models/event.dart';
 
-class AddEventPage extends StatefulWidget {
+class EditEventPage extends StatefulWidget {
+  Event event;
+
+  EditEventPage(this.event);
+
   @override
-  _AddEventPageState createState() => _AddEventPageState();
+  _EditEventPageState createState() => _EditEventPageState(event);
 }
 
-class _AddEventPageState extends State<AddEventPage> {
-    String selectedDate = "Tarix seçin";
-  String selectedTime = "Vaxt seçin";
+class _EditEventPageState extends State<EditEventPage> {
+  Event event;
 
-  var eventTxt = TextEditingController();
+  _EditEventPageState(this.event);
+
+  var dbEvent = EventDbHelper();
+  var nameTxt = TextEditingController();
   var descriptionTxt = TextEditingController();
 
-  Future _pickDate() async {
-    DateTime datepick = await showDatePicker(
-        context: context,
-        initialDate: new DateTime.now(),
-        firstDate: new DateTime.now().add(Duration(days: -2000)),
-        lastDate: new DateTime.now().add(Duration(days: 1624)));
-    if (datepick != null)
-      setState(() {
-        selectedDate = DateFormat("dd-MM-yyyy").format(datepick);
-      });
-  }
-
-  Future _pickTime() async {
-    TimeOfDay timepick = await showTimePicker(
-        context: context, initialTime: new TimeOfDay.now());
-    if (timepick != null) {
-      setState(() {
-        selectedTime =
-            timepick.hour.toString() + ":" + timepick.minute.toString();
-      });
-    }
+  @override
+  void initState() {
+    // TODO: implement initState
+    nameTxt.text = event.name;
+    descriptionTxt.text = event.description;
+    super.initState();
   }
 
   @override
@@ -51,7 +43,7 @@ class _AddEventPageState extends State<AddEventPage> {
                   height: 24,
                 ),
                 Text(
-                  "Yeni hadisə",
+                  "Hadisəni dəyiş",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
                 ),
                 Divider(
@@ -67,8 +59,6 @@ class _AddEventPageState extends State<AddEventPage> {
                 SizedBox(height: 12),
                 buildDescriptionField(),
                 SizedBox(height: 12),
-                buildDateFiled(),
-                buildTimeField(),
                 SizedBox(
                   height: 24,
                 ),
@@ -86,7 +76,7 @@ class _AddEventPageState extends State<AddEventPage> {
 
   Widget buildNameField() {
     return TextField(
-      controller: eventTxt,
+      controller: nameTxt,
       decoration: InputDecoration(
           border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(12))),
@@ -105,46 +95,10 @@ class _AddEventPageState extends State<AddEventPage> {
     );
   }
 
-  Widget buildDateFiled() {
-    return FlatButton(
-      padding: EdgeInsets.zero,
-      onPressed: _pickDate,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 12.0),
-        child: Row(
-          children: <Widget>[
-            Icon(Icons.date_range,
-                color: Theme.of(context).accentColor, size: 30),
-            SizedBox(width: 12),
-            Text(selectedDate, style: TextStyle(fontSize: 14))
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildTimeField() {
-    return FlatButton(
-      padding: EdgeInsets.zero,
-      onPressed: _pickTime,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 12.0),
-        child: Row(
-          children: <Widget>[
-            Icon(Icons.access_time,
-                color: Theme.of(context).accentColor, size: 30),
-            SizedBox(width: 12),
-            Text(selectedTime, style: TextStyle(fontSize: 14))
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget buildSaveButton() {
     return FlatButton(
         onPressed: () {
-          saveEvent();
+          updateEvent();
         },
         child: Text("Yadda saxla"),
         color: Theme.of(context).accentColor,
@@ -167,12 +121,14 @@ class _AddEventPageState extends State<AddEventPage> {
         ));
   }
 
-  void saveEvent() async {
-    await dbEvent.insert(Event(
-        name: eventTxt.text,
+  void updateEvent() async {
+    await dbEvent.update(Event.withid(
+        id: event.id,
+        name: nameTxt.text,
         description: descriptionTxt.text,
-        date: selectedDate,
-        time: selectedTime));
+        date: event.date,
+        time: event.time));
     Navigator.pop(context, true);
   }
 }
+*/

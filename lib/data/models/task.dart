@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'generated/task.g.dart';
+part 'task.g.dart';
 
 @JsonSerializable()
 class Task {
@@ -9,7 +9,11 @@ class Task {
   final String date;
   final bool isDone;
 
-  Task({required this.id, required this.name, required this.date, required this.isDone});
+  Task(
+      {required this.id,
+      required this.name,
+      required this.date,
+      required this.isDone});
 
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);
 

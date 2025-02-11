@@ -34,7 +34,8 @@ class LocalDataSource {
     await db.delete(table, where: 'id = ?', whereArgs: [id]);
   }
 
-  static Future<void> update(String table, Map<String, dynamic> data, int id) async {
+  static Future<void> update(
+      String table, Map<String, dynamic> data, int id) async {
     final db = await LocalDataSource.db;
     await db.update(table, data, where: 'id = ?', whereArgs: [id]);
   }

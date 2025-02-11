@@ -1,8 +1,27 @@
 # Keeper
 
+Clean Architecture Flutter project.
+
 An application for storing and monitoring your assignments and notes.
 
-You can download the APK file [here](https://drive.google.com/file/d/1vMYasgVuSbTjWGibt0bK3X4ZbVsq-T39/view?usp=sharing)
+Download the APK file [here](https://drive.google.com/file/d/1vMYasgVuSbTjWGibt0bK3X4ZbVsq-T39/view?usp=sharing)
+
+# Structure
+
+lib/
+├── data/                   # Data layer: handles data sources and models
+│   ├── datasources/        # Data source implementations (e.g., SQFLite)
+│   ├── mappers/            # Mappers to convert between DTOs and entities
+│   ├── models/             # Models for repository and datasources (DTOs)
+│   ├── repositories/       # Repository implementations
+├── domain/                 # Domain layer: business logic and entities
+│   ├── entities/           # Business entities
+│   ├── usecases/           # Use cases (business logic)
+├── presentation/           # Presentation layer: UI and state management
+│   ├── pages/              # UI pages/screens
+│   ├── widgets/            # Reusable UI components
+├── main.dart               # Entry point of the application
+├── service_locator.dart    # Register services using GetIt
 
 # Screens
 
