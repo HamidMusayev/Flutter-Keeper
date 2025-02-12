@@ -7,7 +7,7 @@ class Task {
   final int id;
   final String name;
   final String date;
-  final bool isDone;
+  final int isDone;
 
   Task(
       {required this.id,

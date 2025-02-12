@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/data/mappers/event_mapper.dart';
+import 'package:todo_app/domain/entities/event_add_entity.dart';
 import 'package:todo_app/domain/entities/event_list_entity.dart';
 import 'package:todo_app/domain/usecases/delete_event_usecase.dart';
 import 'package:todo_app/domain/usecases/get_events_usecase.dart';
@@ -79,7 +81,11 @@ class _EventPageState extends State<EventPage> {
       action: SnackBarAction(
         label: "Qaytar",
         onPressed: () async {
-          await locator<InsertEventUseCase>().call(event);
+          await locator<InsertEventUseCase>().call(EventAddEntity(
+              name: event.name,
+              description: event.description,
+              date: event.date,
+              time: event.time));
           getEvents();
         },
       ),

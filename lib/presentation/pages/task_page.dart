@@ -3,6 +3,7 @@ import 'package:todo_app/domain/entities/task_list_entity.dart';
 import 'package:todo_app/domain/usecases/delete_task_usecase.dart';
 import 'package:todo_app/domain/usecases/get_tasks_usecase.dart';
 import 'package:todo_app/domain/usecases/update_task_usecase.dart';
+import 'package:todo_app/presentation/pages/add_task_page.dart';
 import 'package:todo_app/service_locator.dart';
 
 class TaskPage extends StatefulWidget {
@@ -37,12 +38,12 @@ class _TaskPageState extends State<TaskPage> {
             icon: Icon(Icons.delete, color: Colors.grey),
           ),
           controlAffinity: ListTileControlAffinity.leading,
-          value: tasks[position].isDone,
+          value: tasks[position].isDone == 1,
           onChanged: (value) {
             setState(() {
-              tasks[position].isDone = value!;
+              tasks[position].isDone = value! ? 1 : 0;
               updateCompleted(tasks[position].id, tasks[position].name,
-                  tasks[position].date, value);
+                  tasks[position].date, value ? 1 : 0);
             });
           },
         );
@@ -60,7 +61,7 @@ class _TaskPageState extends State<TaskPage> {
     });
   }
 
-  void updateCompleted(int id, String name, String date, bool isDone) async {
+  void updateCompleted(int id, String name, String date, int isDone) async {
     await locator<UpdateTaskUseCase>()
         .call(TaskListEntity(id: id, name: name, date: date, isDone: isDone));
     getTasks();
@@ -74,12 +75,12 @@ class _TaskPageState extends State<TaskPage> {
   }
 
   void gotoTaskAdd() async {
-    /*bool result = await Navigator.push(
+    bool result = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => AddTaskPage()),
-    );*/
-    /*if (result != null && result) {
+    );
+    if (result != null && result) {
       getTasks();
-    }*/
+    }
   }
 }

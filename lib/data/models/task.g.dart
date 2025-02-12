@@ -10,7 +10,7 @@ Task _$TaskFromJson(Map<String, dynamic> json) => Task(
       id: (json['id'] as num).toInt(),
       name: json['name'] as String,
       date: json['date'] as String,
-      isDone: json['isDone'] as bool,
+      isDone: json['isDone'] as int,
     );
 
 Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{

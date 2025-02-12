@@ -1,7 +1,8 @@
-/*
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:todo_app/data/models/event.dart';
+import 'package:todo_app/domain/entities/event_add_entity.dart';
+import 'package:todo_app/domain/usecases/insert_event_usecase.dart';
+import 'package:todo_app/service_locator.dart';
 
 class AddEventPage extends StatefulWidget {
   @override
@@ -9,14 +10,14 @@ class AddEventPage extends StatefulWidget {
 }
 
 class _AddEventPageState extends State<AddEventPage> {
-    String selectedDate = "Tarix seçin";
+  String selectedDate = "Tarix seçin";
   String selectedTime = "Vaxt seçin";
 
   var eventTxt = TextEditingController();
   var descriptionTxt = TextEditingController();
 
   Future _pickDate() async {
-    DateTime datepick = await showDatePicker(
+    DateTime? datepick = await showDatePicker(
         context: context,
         initialDate: new DateTime.now(),
         firstDate: new DateTime.now().add(Duration(days: -2000)),
@@ -28,7 +29,7 @@ class _AddEventPageState extends State<AddEventPage> {
   }
 
   Future _pickTime() async {
-    TimeOfDay timepick = await showTimePicker(
+    TimeOfDay? timepick = await showTimePicker(
         context: context, initialTime: new TimeOfDay.now());
     if (timepick != null) {
       setState(() {
@@ -55,12 +56,7 @@ class _AddEventPageState extends State<AddEventPage> {
                   "Yeni hadisə",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
                 ),
-                Divider(
-                    color: Theme.of(context).accentColor,
-                    height: 24,
-                    thickness: 4,
-                    indent: 120,
-                    endIndent: 120),
+                Divider(height: 24, thickness: 4, indent: 120, endIndent: 120),
                 SizedBox(
                   height: 24,
                 ),
@@ -107,15 +103,14 @@ class _AddEventPageState extends State<AddEventPage> {
   }
 
   Widget buildDateFiled() {
-    return FlatButton(
-      padding: EdgeInsets.zero,
+    return TextButton(
       onPressed: _pickDate,
       child: Padding(
         padding: const EdgeInsets.only(left: 12.0),
         child: Row(
           children: <Widget>[
             Icon(Icons.date_range,
-                color: Theme.of(context).accentColor, size: 30),
+                color: Theme.of(context).colorScheme.secondary, size: 30),
             SizedBox(width: 12),
             Text(selectedDate, style: TextStyle(fontSize: 14))
           ],
@@ -125,15 +120,14 @@ class _AddEventPageState extends State<AddEventPage> {
   }
 
   Widget buildTimeField() {
-    return FlatButton(
-      padding: EdgeInsets.zero,
+    return TextButton(
       onPressed: _pickTime,
       child: Padding(
         padding: const EdgeInsets.only(left: 12.0),
         child: Row(
           children: <Widget>[
             Icon(Icons.access_time,
-                color: Theme.of(context).accentColor, size: 30),
+                color: Theme.of(context).colorScheme.secondary, size: 30),
             SizedBox(width: 12),
             Text(selectedTime, style: TextStyle(fontSize: 14))
           ],
@@ -143,33 +137,33 @@ class _AddEventPageState extends State<AddEventPage> {
   }
 
   Widget buildSaveButton() {
-    return FlatButton(
+    return TextButton(
         onPressed: () {
           saveEvent();
         },
         child: Text("Yadda saxla"),
-        color: Theme.of(context).accentColor,
-        textColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+        style: TextButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
         ));
   }
 
   Widget buildCloseButton() {
-    return FlatButton(
+    return TextButton(
         onPressed: () {
           Navigator.of(context).pop();
         },
         child: Text("Ləğv et"),
-        color: Colors.white,
-        textColor: Theme.of(context).accentColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+        style: TextButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
         ));
   }
 
   void saveEvent() async {
-    await dbEvent.insert(Event(
+    await locator<InsertEventUseCase>().call(EventAddEntity(
         name: eventTxt.text,
         description: descriptionTxt.text,
         date: selectedDate,
@@ -177,4 +171,3 @@ class _AddEventPageState extends State<AddEventPage> {
     Navigator.pop(context, true);
   }
 }
-*/

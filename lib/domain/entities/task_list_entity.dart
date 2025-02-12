@@ -2,7 +2,7 @@ class TaskListEntity {
   final int id;
   String name;
   String date;
-  bool isDone;
+  int isDone;
 
   TaskListEntity(
       {required this.id,

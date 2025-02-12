@@ -9,7 +9,7 @@ class GetTasksUseCase {
 
   Future<List<TaskListEntity>> call() async {
     var tasks = await repository.get();
-    var tasksMapped = tasks.map((model) => TaskMapper.toEntity(model)).toList();
+    var tasksMapped = tasks.map((model) => TaskMapper.fromTask(model)).toList();
 
     return tasksMapped;
   }

@@ -1,8 +1,9 @@
 import 'package:todo_app/data/models/task.dart';
+import 'package:todo_app/domain/entities/task_add_entity.dart';
 import 'package:todo_app/domain/entities/task_list_entity.dart';
 
 class TaskMapper {
-  static Task toModel(TaskListEntity entity) {
+  static Task fromListEntity(TaskListEntity entity) {
     return Task(
       id: entity.id,
       name: entity.name,
@@ -11,7 +12,16 @@ class TaskMapper {
     );
   }
 
-  static TaskListEntity toEntity(Task model) {
+  static Task fromAddEntity(TaskAddEntity entity) {
+    return Task(
+      id: 0,
+      name: entity.name,
+      date: entity.date,
+      isDone: entity.isDone,
+    );
+  }
+
+  static TaskListEntity fromTask(Task model) {
     return TaskListEntity(
       id: model.id,
       name: model.name,

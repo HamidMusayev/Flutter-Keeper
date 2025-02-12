@@ -10,7 +10,7 @@ class GetEventsUseCase {
   Future<List<EventListEntity>> call() async {
     var events = await repository.get();
     var eventsMapped =
-        events.map((model) => EventMapper.toEntity(model)).toList();
+        events.map((model) => EventMapper.fromEvent(model)).toList();
 
     return eventsMapped;
   }

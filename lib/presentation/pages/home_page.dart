@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/presentation/pages/add_event_page.dart';
+import 'package:todo_app/presentation/pages/add_task_page.dart';
 import 'package:todo_app/presentation/pages/event_page.dart';
 import 'package:todo_app/presentation/pages/task_page.dart';
 
@@ -27,7 +29,17 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, "/add");
+          if (_pageController.page == 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AddTaskPage()),
+            );
+          } else {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AddEventPage()),
+            );
+          }
         },
         child: Icon(Icons.add),
       ),
@@ -80,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
             context,
             "Tapşırıqlar",
             currentPage! < 0.5,
-                () => _pageController.previousPage(
+            () => _pageController.previousPage(
               duration: Duration(milliseconds: 500),
               curve: Curves.easeInOutExpo,
             ),
@@ -92,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
             context,
             "Hadisələr",
             currentPage! > 0.5,
-                () => _pageController.nextPage(
+            () => _pageController.nextPage(
               duration: Duration(milliseconds: 500),
               curve: Curves.easeInOutExpo,
             ),
@@ -106,13 +118,13 @@ class _MyHomePageState extends State<MyHomePage> {
       VoidCallback onPressed) {
     return isActive
         ? FilledButton(
-      onPressed: onPressed,
-      child: Text(text),
-    )
+            onPressed: onPressed,
+            child: Text(text),
+          )
         : OutlinedButton(
-      onPressed: onPressed,
-      child: Text(text),
-    );
+            onPressed: onPressed,
+            child: Text(text),
+          );
   }
 
   String _currentMonthSelection() {

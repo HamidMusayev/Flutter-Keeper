@@ -19,7 +19,7 @@ class LocalDataSource {
 
   static void _createDb(Database db, int version) async {
     await db.execute(
-        "CREATE TABLE tasks(id INTEGER PRIMARY KEY, name TEXT, date TEXT, isDone BOOLEAN)");
+        "CREATE TABLE tasks(id INTEGER PRIMARY KEY, name TEXT, date TEXT, isDone INTEGER)");
     await db.execute(
         "CREATE TABLE events(id INTEGER PRIMARY KEY, name TEXT, description TEXT, date TEXT, time TEXT)");
   }

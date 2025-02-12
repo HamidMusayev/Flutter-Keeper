@@ -1,137 +1,122 @@
-/*
-// import 'package:flutter/material.dart';
-// import 'package:todo_app/data/task_db_helper.dart';
-// import 'package:todo_app/data/models/task.dart';
-// import 'package:intl/intl.dart';
-//
-// class AddTaskPage extends StatefulWidget {
-//   @override
-//   State<StatefulWidget> createState() {
-//     return _AddTaskPageState();
-//   }
-// }
-//
-// class _AddTaskPageState extends State {
-//   var dbTask = TaskDbHelper();
-//   String selectedDate = "Tarixi seçin";
-//
-//   var taskTxt = TextEditingController();
-//
-//   Future _pickDate() async {
-//     DateTime datepick = await showDatePicker(
-//         context: context,
-//         initialDate: new DateTime.now(),
-//         firstDate: new DateTime.now().add(Duration(days: -2000)),
-//         lastDate: new DateTime.now().add(Duration(days: 1624)));
-//     if (datepick != null)
-//       setState(() {
-//         selectedDate = DateFormat("dd-MM-yyyy").format(datepick);
-//       });
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Center(
-//         child: SingleChildScrollView(
-//           child: Padding(
-//             padding: const EdgeInsets.all(24.0),
-//             child: Column(
-//               mainAxisSize: MainAxisSize.min,
-//               children: <Widget>[
-//                 SizedBox(
-//                   height: 24,
-//                 ),
-//                 Text(
-//                   "Yeni tapşırıq",
-//                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
-//                 ),
-//                 Divider(
-//                     color: Theme.of(context).accentColor,
-//                     height: 24,
-//                     thickness: 4,
-//                     indent: 120,
-//                     endIndent: 120),
-//                 SizedBox(
-//                   height: 24,
-//                 ),
-//                 buildTaskField(),
-//                 SizedBox(height: 12),
-//                 buildDateFiled(),
-//                 SizedBox(
-//                   height: 24,
-//                 ),
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                   children: <Widget>[buildCloseButton(), buildSaveButton()],
-//                 )
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-//
-//   Widget buildTaskField() {
-//     return TextField(
-//       controller: taskTxt,
-//       maxLines: 2,
-//       decoration: InputDecoration(
-//           border: OutlineInputBorder(
-//               borderRadius: BorderRadius.all(Radius.circular(12))),
-//           labelText: "Tapşırıq yazın"),
-//     );
-//   }
-//
-//   Widget buildDateFiled() {
-//     return FlatButton(
-//       padding: EdgeInsets.zero,
-//       onPressed: _pickDate,
-//       child: Padding(
-//         padding: const EdgeInsets.only(left: 12.0),
-//         child: Row(
-//           children: <Widget>[
-//             Icon(Icons.date_range,
-//                 color: Theme.of(context).accentColor, size: 30),
-//             SizedBox(width: 12),
-//             Text(selectedDate, style: TextStyle(fontSize: 14))
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-//
-//   Widget buildSaveButton() {
-//     return FlatButton(
-//         onPressed: () {
-//           saveTask();
-//         },
-//         child: Text("Yadda saxla"),
-//         color: Theme.of(context).accentColor,
-//         textColor: Colors.white,
-//         shape: RoundedRectangleBorder(
-//           borderRadius: BorderRadius.circular(12),
-//         ));
-//   }
-//
-//   Widget buildCloseButton() {
-//     return FlatButton(
-//         onPressed: () {
-//           Navigator.of(context).pop();
-//         },
-//         child: Text("Bağla"),
-//         color: Colors.white,
-//         textColor: Theme.of(context).accentColor,
-//         shape: RoundedRectangleBorder(
-//           borderRadius: BorderRadius.circular(12),
-//         ));
-//   }
-//
-//   void saveTask() async {
-//     await dbTask
-//         .insert(Task(name: taskTxt.text, date: selectedDate, completed: 0));
-//     Navigator.pop(context, true);
-//   }
-// }
-*/
+import 'package:flutter/material.dart';
+import 'package:todo_app/data/models/task.dart';
+import 'package:intl/intl.dart';
+import 'package:todo_app/domain/entities/task_add_entity.dart';
+import 'package:todo_app/domain/usecases/insert_task_usecase.dart';
+import 'package:todo_app/service_locator.dart';
+
+class AddTaskPage extends StatefulWidget {
+  @override
+  _AddTaskPageState createState() => _AddTaskPageState();
+}
+
+class _AddTaskPageState extends State<AddTaskPage> {
+  String selectedDate = "Tarixi seçin";
+  final taskTxt = TextEditingController();
+
+  Future<void> _pickDate() async {
+    DateTime? datepick = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now().subtract(Duration(days: 2000)),
+      lastDate: DateTime.now().add(Duration(days: 1624)),
+    );
+    if (datepick != null) {
+      setState(() {
+        selectedDate = DateFormat("dd-MM-yyyy").format(datepick);
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                SizedBox(height: 24),
+                Text(
+                  "Yeni tapşırıq",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
+                ),
+                Divider(height: 24, thickness: 4, indent: 120, endIndent: 120),
+                SizedBox(height: 24),
+                _buildTaskField(),
+                SizedBox(height: 12),
+                _buildDateField(),
+                SizedBox(height: 24),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[_buildCloseButton(), _buildSaveButton()],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTaskField() {
+    return TextField(
+      controller: taskTxt,
+      maxLines: 2,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+        ),
+        labelText: "Tapşırıq yazın",
+      ),
+    );
+  }
+
+  Widget _buildDateField() {
+    return TextButton(
+      onPressed: _pickDate,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 12.0),
+        child: Row(
+          children: <Widget>[
+            Icon(Icons.date_range, color: Theme.of(context).colorScheme.secondary, size: 30),
+            SizedBox(width: 12),
+            Text(selectedDate, style: TextStyle(fontSize: 14)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSaveButton() {
+    return TextButton(
+      onPressed: _saveTask,
+      child: Text("Yadda saxla"),
+      style: TextButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCloseButton() {
+    return TextButton(
+      onPressed: () => Navigator.of(context).pop(),
+      child: Text("Bağla"),
+      style: TextButton.styleFrom(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _saveTask() async {
+    await locator<InsertTaskUseCase>().call(TaskAddEntity(name: taskTxt.text, date: selectedDate, isDone: 0));
+    Navigator.pop(context, true);
+  }
+}

@@ -1,8 +1,9 @@
 import 'package:todo_app/data/models/event.dart';
+import 'package:todo_app/domain/entities/event_add_entity.dart';
 import 'package:todo_app/domain/entities/event_list_entity.dart';
 
 class EventMapper {
-  static Event toModel(EventListEntity entity) {
+  static Event fromListEntity(EventListEntity entity) {
     return Event(
       id: entity.id,
       name: entity.name,
@@ -12,7 +13,17 @@ class EventMapper {
     );
   }
 
-  static EventListEntity toEntity(Event model) {
+  static Event fromAddEntity(EventAddEntity entity) {
+    return Event(
+      id: 0,
+      name: entity.name,
+      description: entity.description,
+      date: entity.date,
+      time: entity.time,
+    );
+  }
+
+  static EventListEntity fromEvent(Event model) {
     return EventListEntity(
       id: model.id,
       name: model.name,

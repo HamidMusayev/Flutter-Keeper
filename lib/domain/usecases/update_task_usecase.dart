@@ -8,6 +8,6 @@ class UpdateTaskUseCase {
   UpdateTaskUseCase(this.repository);
 
   Future<void> call(TaskListEntity task) async {
-    await repository.update(TaskMapper.toModel(task));
+    await repository.update(TaskMapper.fromListEntity(task));
   }
 }

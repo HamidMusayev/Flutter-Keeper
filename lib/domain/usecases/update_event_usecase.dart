@@ -8,6 +8,6 @@ class UpdateEventUseCase {
   UpdateEventUseCase(this.repository);
 
   Future<void> call(EventListEntity event) async {
-    await repository.update(EventMapper.toModel(event));
+    await repository.update(EventMapper.fromListEntity(event));
   }
 }
