@@ -12,29 +12,31 @@ class AddEventPage extends StatefulWidget {
 class _AddEventPageState extends State<AddEventPage> {
   String selectedDate = "Tarix seçin";
   String selectedTime = "Vaxt seçin";
+  final eventTxt = TextEditingController();
+  final descriptionTxt = TextEditingController();
 
-  var eventTxt = TextEditingController();
-  var descriptionTxt = TextEditingController();
-
-  Future _pickDate() async {
+  Future<void> _pickDate() async {
     DateTime? datepick = await showDatePicker(
-        context: context,
-        initialDate: new DateTime.now(),
-        firstDate: new DateTime.now().add(Duration(days: -2000)),
-        lastDate: new DateTime.now().add(Duration(days: 1624)));
-    if (datepick != null)
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now().subtract(Duration(days: 2000)),
+      lastDate: DateTime.now().add(Duration(days: 1624)),
+    );
+    if (datepick != null) {
       setState(() {
         selectedDate = DateFormat("dd-MM-yyyy").format(datepick);
       });
+    }
   }
 
-  Future _pickTime() async {
+  Future<void> _pickTime() async {
     TimeOfDay? timepick = await showTimePicker(
-        context: context, initialTime: new TimeOfDay.now());
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
     if (timepick != null) {
       setState(() {
-        selectedTime =
-            timepick.hour.toString() + ":" + timepick.minute.toString();
+        selectedTime = "${timepick.hour}:${timepick.minute}";
       });
     }
   }
@@ -44,65 +46,57 @@ class _AddEventPageState extends State<AddEventPage> {
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                SizedBox(
-                  height: 24,
-                ),
-                Text(
-                  "Yeni hadisə",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
-                ),
-                Divider(height: 24, thickness: 4, indent: 120, endIndent: 120),
-                SizedBox(
-                  height: 24,
-                ),
-                buildNameField(),
-                SizedBox(height: 12),
-                buildDescriptionField(),
-                SizedBox(height: 12),
-                buildDateFiled(),
-                buildTimeField(),
-                SizedBox(
-                  height: 24,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[buildCloseButton(), buildSaveButton()],
-                )
-              ],
-            ),
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              SizedBox(height: 24),
+              Text("Yeni hadisə",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32)),
+              Divider(height: 24, thickness: 4, indent: 120, endIndent: 120),
+              SizedBox(height: 24),
+              _buildNameField(),
+              SizedBox(height: 12),
+              _buildDescriptionField(),
+              SizedBox(height: 12),
+              _buildDateField(),
+              _buildTimeField(),
+              SizedBox(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[_buildCloseButton(), _buildSaveButton()],
+              ),
+            ],
           ),
         ),
       ),
     );
   }
 
-  Widget buildNameField() {
+  Widget _buildNameField() {
     return TextField(
       controller: eventTxt,
       decoration: InputDecoration(
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(12))),
-          labelText: "Hadisənin adı"),
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(12))),
+        labelText: "Hadisənin adı",
+      ),
     );
   }
 
-  Widget buildDescriptionField() {
+  Widget _buildDescriptionField() {
     return TextField(
       controller: descriptionTxt,
       maxLines: 5,
       decoration: InputDecoration(
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(12))),
-          labelText: "Qeydlər"),
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(12))),
+        labelText: "Qeydlər",
+      ),
     );
   }
 
-  Widget buildDateFiled() {
+  Widget _buildDateField() {
     return TextButton(
       onPressed: _pickDate,
       child: Padding(
@@ -112,14 +106,14 @@ class _AddEventPageState extends State<AddEventPage> {
             Icon(Icons.date_range,
                 color: Theme.of(context).colorScheme.secondary, size: 30),
             SizedBox(width: 12),
-            Text(selectedDate, style: TextStyle(fontSize: 14))
+            Text(selectedDate, style: TextStyle(fontSize: 14)),
           ],
         ),
       ),
     );
   }
 
-  Widget buildTimeField() {
+  Widget _buildTimeField() {
     return TextButton(
       onPressed: _pickTime,
       child: Padding(
@@ -129,45 +123,40 @@ class _AddEventPageState extends State<AddEventPage> {
             Icon(Icons.access_time,
                 color: Theme.of(context).colorScheme.secondary, size: 30),
             SizedBox(width: 12),
-            Text(selectedTime, style: TextStyle(fontSize: 14))
+            Text(selectedTime, style: TextStyle(fontSize: 14)),
           ],
         ),
       ),
     );
   }
 
-  Widget buildSaveButton() {
+  Widget _buildSaveButton() {
     return TextButton(
-        onPressed: () {
-          saveEvent();
-        },
-        child: Text("Yadda saxla"),
-        style: TextButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ));
+      onPressed: _saveEvent,
+      child: Text("Yadda saxla"),
+      style: TextButton.styleFrom(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+    );
   }
 
-  Widget buildCloseButton() {
+  Widget _buildCloseButton() {
     return TextButton(
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-        child: Text("Ləğv et"),
-        style: TextButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ));
+      onPressed: () => Navigator.of(context).pop(),
+      child: Text("Ləğv et"),
+      style: TextButton.styleFrom(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+    );
   }
 
-  void saveEvent() async {
+  Future<void> _saveEvent() async {
     await locator<InsertEventUseCase>().call(EventAddEntity(
-        name: eventTxt.text,
-        description: descriptionTxt.text,
-        date: selectedDate,
-        time: selectedTime));
+      name: eventTxt.text,
+      description: descriptionTxt.text,
+      date: selectedDate,
+      time: selectedTime,
+    ));
     Navigator.pop(context, true);
   }
 }

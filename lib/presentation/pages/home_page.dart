@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:todo_app/presentation/pages/add_event_page.dart';
 import 'package:todo_app/presentation/pages/add_task_page.dart';
 import 'package:todo_app/presentation/pages/event_page.dart';
@@ -12,7 +13,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final PageController _pageController = PageController();
   double? currentPage = 0;
-  final String currentDay = DateTime.now().day.toString();
 
   @override
   void initState() {
@@ -24,124 +24,203 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  String _weekdayNameInAzerbaijani() {
+    return DateFormat.EEEE('az').format(DateTime.now());
+  }
+
+  String _monthNameInAzerbaijani() {
+    return DateFormat.MMMM('az').format(DateTime.now());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if (_pageController.page == 0) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AddTaskPage()),
-            );
-          } else {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AddEventPage()),
-            );
-          }
-        },
+        onPressed: _onFabPressed,
         child: Icon(Icons.add),
+      ),
+      appBar: AppBar(
+        title: Text("Xoş gəldin, Həmid!"),
+        actions: [
+          /*IconButton(
+            onPressed: () {
+              debugPrint("Settings button pressed");
+            },
+            icon: Icon(
+              Icons.settings_rounded,
+              color: Theme.of(context).primaryColor,
+            ),
+          ),
+          SizedBox(width: 6),*/
+          SizedBox(
+            width: 150,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Positioned(
+                  right: 70,
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.add_rounded,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  right: 38,
+                  child: CircleAvatar(
+                    maxRadius: 16,
+                    backgroundImage: NetworkImage(
+                        "https://musicart.xboxlive.com/7/4d4d6500-0000-0000-0000-000000000002/504/image.jpg"),
+                  ),
+                ),
+                Positioned(
+                  right: 12,
+                  child: CircleAvatar(
+                    maxRadius: 20,
+                    backgroundImage: NetworkImage(
+                        "https://ichef.bbci.co.uk/images/ic/480xn/p0dnxrcv.jpg.webp"),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
       body: Stack(
         children: [
           Positioned(
-            right: 0,
+            right: 12,
             child: Text(
-              currentDay,
-              style: TextStyle(fontSize: 200, color: Colors.black12),
+              DateTime.now().day.toString(),
+              style: TextStyle(fontSize: 140, color: Colors.black12),
             ),
           ),
-          _mainContent(context),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 30),
+              Padding(
+                padding: const EdgeInsets.all(22),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      _monthNameInAzerbaijani(),
+                      style:
+                          TextStyle(fontSize: 38, fontWeight: FontWeight.bold),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 2),
+                      child: Text(
+                        _weekdayNameInAzerbaijani(),
+                        style: TextStyle(fontSize: 14, color: Colors.black45),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 22, vertical: 10),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: "Axtarış...",
+                    prefixIcon: Icon(Icons.search),
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(22),
+                child: _buildButton(context),
+              ),
+              Expanded(
+                child: PageView(
+                  controller: _pageController,
+                  children: [TaskPage(), EventPage(), Container()],
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
   }
 
-  Widget _mainContent(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(height: 60),
-        Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Text(
-            _currentMonthSelection(),
-            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: _buildButton(context),
-        ),
-        Expanded(
-          child: PageView(
-            controller: _pageController,
-            children: [TaskPage(), EventPage()],
-          ),
-        ),
-      ],
-    );
+  void _onFabPressed() {
+    if (_pageController.page == 0) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => AddTaskPage()),
+      );
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => AddEventPage()),
+      );
+    }
   }
 
   Widget _buildButton(BuildContext context) {
     return Row(
       children: [
-        Expanded(
-          child: _buildMaterialButton(
-            context,
-            "Tapşırıqlar",
-            currentPage! < 0.5,
-            () => _pageController.previousPage(
-              duration: Duration(milliseconds: 500),
-              curve: Curves.easeInOutExpo,
-            ),
+        _buildMaterialButton(
+          context,
+          "Tapşırıqlar",
+          Icons.task_alt_rounded,
+          currentPage! < 0.5,
+          () => _pageController.animateToPage(
+            0,
+            duration: Duration(milliseconds: 500),
+            curve: Curves.easeInOutExpo,
           ),
         ),
-        SizedBox(width: 32),
-        Expanded(
-          child: _buildMaterialButton(
-            context,
-            "Hadisələr",
-            currentPage! > 0.5,
-            () => _pageController.nextPage(
-              duration: Duration(milliseconds: 500),
-              curve: Curves.easeInOutExpo,
-            ),
+        SizedBox(width: 16),
+        _buildMaterialButton(
+          context,
+          "Hadisələr",
+          Icons.event_available_rounded,
+          currentPage! > 0.5 && currentPage! < 1.5,
+          () => _pageController.animateToPage(
+            1,
+            duration: Duration(milliseconds: 500),
+            curve: Curves.easeInOutExpo,
+          ),
+        ),
+        SizedBox(width: 16),
+        _buildMaterialButton(
+          context,
+          "İşlər",
+          Icons.timelapse_rounded,
+          currentPage! > 1.5,
+          () => _pageController.animateToPage(
+            2,
+            duration: Duration(milliseconds: 500),
+            curve: Curves.easeInOutExpo,
           ),
         ),
       ],
     );
   }
 
-  Widget _buildMaterialButton(BuildContext context, String text, bool isActive,
-      VoidCallback onPressed) {
+  Widget _buildMaterialButton(BuildContext context, String text, IconData icon,
+      bool isActive, VoidCallback onPressed) {
     return isActive
-        ? FilledButton(
+        ? FilledButton.icon(
             onPressed: onPressed,
-            child: Text(text),
+            label: Text(text),
+            icon: Icon(icon),
           )
         : OutlinedButton(
             onPressed: onPressed,
             child: Text(text),
           );
-  }
-
-  String _currentMonthSelection() {
-    const months = [
-      "Yanvar",
-      "Fevral",
-      "Mart",
-      "Aprel",
-      "May",
-      "İyun",
-      "İyul",
-      "Avqust",
-      "Sentyabr",
-      "Oktyabr",
-      "Noyabr",
-      "Dekabr"
-    ];
-    return months[DateTime.now().month - 1];
   }
 }

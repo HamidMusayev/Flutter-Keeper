@@ -4,7 +4,7 @@ Clean Architecture Flutter project.
 
 An application for storing and monitoring your assignments and notes.
 
-Download the APK file [here](https://drive.google.com/file/d/1vMYasgVuSbTjWGibt0bK3X4ZbVsq-T39/view?usp=sharing)
+// todo : add family members
 
 # Structure
 

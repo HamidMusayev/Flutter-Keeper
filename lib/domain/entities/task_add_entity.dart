@@ -3,8 +3,5 @@ class TaskAddEntity {
   String date;
   int isDone;
 
-  TaskAddEntity(
-      {required this.name,
-      required this.date,
-      required this.isDone});
+  TaskAddEntity({required this.name, required this.date, required this.isDone});
 }

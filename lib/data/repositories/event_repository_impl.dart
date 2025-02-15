@@ -21,6 +21,6 @@ class EventRepositoryImpl implements EventRepository {
 
   @override
   Future<void> update(Event event) async {
-    await LocalDataSource.update("events", event.toJson(), event.id);
+    await LocalDataSource.update("events", event.toJson(), event.id!);
   }
 }

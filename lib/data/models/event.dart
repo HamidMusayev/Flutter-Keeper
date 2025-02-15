@@ -4,14 +4,14 @@ part 'event.g.dart';
 
 @JsonSerializable()
 class Event {
-  final int id;
+  final int? id;
   final String name;
   final String description;
   final String date;
   final String time;
 
   Event(
-      {required this.id,
+      {this.id,
       required this.name,
       required this.description,
       required this.date,

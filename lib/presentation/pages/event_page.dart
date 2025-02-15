@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/data/mappers/event_mapper.dart';
 import 'package:todo_app/domain/entities/event_add_entity.dart';
 import 'package:todo_app/domain/entities/event_list_entity.dart';
 import 'package:todo_app/domain/usecases/delete_event_usecase.dart';
 import 'package:todo_app/domain/usecases/get_events_usecase.dart';
 import 'package:todo_app/domain/usecases/insert_event_usecase.dart';
+import 'package:todo_app/presentation/pages/add_event_page.dart';
+import 'package:todo_app/presentation/pages/edit_event_page.dart';
 import 'package:todo_app/service_locator.dart';
 
 class EventPage extends StatefulWidget {
@@ -93,18 +94,18 @@ class _EventPageState extends State<EventPage> {
   }
 
   void gotoEventAdd() async {
-    /*bool result = await Navigator.push(
+    bool result = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => AddEventPage()));
-    if (result != null && result) {
+    if (result) {
       getEvents();
-    }*/
+    }
   }
 
   void gotoEventEdit(EventListEntity event) async {
-    /*bool result = await Navigator.push(
+    bool result = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => EditEventPage(event)));
-    if (result != null && result) {
+    if (result) {
       getEvents();
-    }*/
+    }
   }
 }

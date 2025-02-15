@@ -1,10 +1,11 @@
-/*
 import 'package:flutter/material.dart';
-import 'package:todo_app/data/event_db_helper.dart';
-import 'package:todo_app/data/models/event.dart';
+import 'package:todo_app/domain/entities/event_list_entity.dart';
+import 'package:todo_app/domain/entities/event_update_entity.dart';
+import 'package:todo_app/domain/usecases/update_event_usecase.dart';
+import 'package:todo_app/service_locator.dart';
 
 class EditEventPage extends StatefulWidget {
-  Event event;
+  EventListEntity event;
 
   EditEventPage(this.event);
 
@@ -13,17 +14,13 @@ class EditEventPage extends StatefulWidget {
 }
 
 class _EditEventPageState extends State<EditEventPage> {
-  Event event;
-
+  EventListEntity event;
   _EditEventPageState(this.event);
-
-  var dbEvent = EventDbHelper();
   var nameTxt = TextEditingController();
   var descriptionTxt = TextEditingController();
 
   @override
   void initState() {
-    // TODO: implement initState
     nameTxt.text = event.name;
     descriptionTxt.text = event.description;
     super.initState();
@@ -39,29 +36,22 @@ class _EditEventPageState extends State<EditEventPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                SizedBox(
-                  height: 24,
-                ),
+                SizedBox(height: 24),
                 Text(
                   "Hadisəni dəyiş",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
                 ),
                 Divider(
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).colorScheme.secondary,
                     height: 24,
                     thickness: 4,
-                    indent: 120,
                     endIndent: 120),
-                SizedBox(
-                  height: 24,
-                ),
+                SizedBox(height: 24),
                 buildNameField(),
                 SizedBox(height: 12),
                 buildDescriptionField(),
                 SizedBox(height: 12),
-                SizedBox(
-                  height: 24,
-                ),
+                SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[buildCloseButton(), buildSaveButton()],
@@ -96,39 +86,38 @@ class _EditEventPageState extends State<EditEventPage> {
   }
 
   Widget buildSaveButton() {
-    return FlatButton(
+    return TextButton(
         onPressed: () {
           updateEvent();
         },
         child: Text("Yadda saxla"),
-        color: Theme.of(context).accentColor,
-        textColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+        style: TextButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
         ));
   }
 
   Widget buildCloseButton() {
-    return FlatButton(
+    return TextButton(
         onPressed: () {
           Navigator.of(context).pop();
         },
         child: Text("Ləğv et"),
-        color: Colors.white,
-        textColor: Theme.of(context).accentColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+        style: TextButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
         ));
   }
 
   void updateEvent() async {
-    await dbEvent.update(Event.withid(
+    await locator<UpdateEventUseCase>().call(EventUpdateEntity(
         id: event.id,
-        name: nameTxt.text,
-        description: descriptionTxt.text,
+        name: event.name,
+        description: event.description,
         date: event.date,
         time: event.time));
     Navigator.pop(context, true);
   }
 }
-*/
