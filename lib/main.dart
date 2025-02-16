@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todo_app/core/bindings/main_bindings.dart';
 import 'package:todo_app/core/bindings/repository_bindings.dart';
+import 'package:todo_app/core/routes/app_routes.dart';
 import 'package:todo_app/presentation/pages/home/home_page.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -22,7 +23,9 @@ class MyApp extends StatelessWidget {
         DefaultMaterialLocalizations.delegate,
         DefaultWidgetsLocalizations.delegate,
       ],
-      home: HomePage(),
+      unknownRoute: AppRoutes.unknownRoute,
+      getPages: AppRoutes.routes,
+      initialRoute: AppRoutes.home,
     );
   }
 }

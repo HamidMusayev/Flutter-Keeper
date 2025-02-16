@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/domain/entities/event_list_entity.dart';
 import 'package:todo_app/domain/entities/event_update_entity.dart';
 import 'package:todo_app/domain/usecases/update_event_usecase.dart';
-import 'package:todo_app/service_locator.dart';
 
 class EditEventPage extends StatefulWidget {
   EventListEntity event;
@@ -112,12 +111,12 @@ class _EditEventPageState extends State<EditEventPage> {
   }
 
   void updateEvent() async {
-    await locator<UpdateEventUseCase>().call(EventUpdateEntity(
+    /*await locator<UpdateEventUseCase>().call(EventUpdateEntity(
         id: event.id,
         name: event.name,
         description: event.description,
         date: event.date,
-        time: event.time));
+        time: event.time));*/
     Navigator.pop(context, true);
   }
 }

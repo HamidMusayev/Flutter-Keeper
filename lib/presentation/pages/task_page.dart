@@ -7,7 +7,6 @@ import 'package:todo_app/domain/usecases/get_tasks_usecase.dart';
 import 'package:todo_app/domain/usecases/insert_task_usecase.dart';
 import 'package:todo_app/domain/usecases/update_task_usecase.dart';
 import 'package:todo_app/presentation/pages/add_task_page.dart';
-import 'package:todo_app/service_locator.dart';
 
 class TaskPage extends StatefulWidget {
   @override
@@ -61,7 +60,7 @@ class _TaskPageState extends State<TaskPage> {
         ),
         confirmDismiss: (direction) async {
           if (direction == DismissDirection.startToEnd) {
-            await locator<UpdateTaskUseCase>().call(
+            /*await locator<UpdateTaskUseCase>().call(
               TaskUpdateEntity(
                 id: tasks[position].id,
                 name: tasks[position].name,
@@ -71,7 +70,7 @@ class _TaskPageState extends State<TaskPage> {
             );
             getTasks();
 
-            return false;
+            return false;*/
           } else if (direction == DismissDirection.endToStart) {
             deleteTask(tasks[position]);
             return true;
@@ -116,13 +115,13 @@ class _TaskPageState extends State<TaskPage> {
   }
 
   void getTasks() async {
-    var taskList = await locator<GetTasksUseCase>().call();
+    /*var taskList = await locator<GetTasksUseCase>().call();
 
-    setState(() => tasks = taskList);
+    setState(() => tasks = taskList);*/
   }
 
   void deleteTask(TaskListEntity task) async {
-    await locator<DeleteTaskUseCase>().call(task.id);
+    /*await locator<DeleteTaskUseCase>().call(task.id);
     getTasks();
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text("Tapşırıq silindi"),
@@ -137,13 +136,13 @@ class _TaskPageState extends State<TaskPage> {
           getTasks();
         },
       ),
-    ));
+    ));*/
   }
 
   void gotoTaskAdd() async {
     await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => AddTaskPage()),
+      MaterialPageRoute(builder: (context) => TaskAddPage()),
     );
 
     getTasks();

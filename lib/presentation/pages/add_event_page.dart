@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/domain/entities/event_add_entity.dart';
 import 'package:todo_app/domain/usecases/insert_event_usecase.dart';
-import 'package:todo_app/service_locator.dart';
 
-class AddEventPage extends StatefulWidget {
+class EventAddPage extends StatefulWidget {
   @override
-  _AddEventPageState createState() => _AddEventPageState();
+  _EventAddPageState createState() => _EventAddPageState();
 }
 
-class _AddEventPageState extends State<AddEventPage> {
+class _EventAddPageState extends State<EventAddPage> {
   String selectedDate = "Tarix seçin";
   String selectedTime = "Vaxt seçin";
   final eventTxt = TextEditingController();
@@ -151,12 +150,12 @@ class _AddEventPageState extends State<AddEventPage> {
   }
 
   Future<void> _saveEvent() async {
-    await locator<InsertEventUseCase>().call(EventAddEntity(
+    /*await locator<InsertEventUseCase>().call(EventAddEntity(
       name: eventTxt.text,
       description: descriptionTxt.text,
       date: selectedDate,
       time: selectedTime,
-    ));
+    ));*/
     Navigator.pop(context, true);
   }
 }

@@ -6,7 +6,6 @@ import 'package:todo_app/domain/usecases/get_events_usecase.dart';
 import 'package:todo_app/domain/usecases/insert_event_usecase.dart';
 import 'package:todo_app/presentation/pages/add_event_page.dart';
 import 'package:todo_app/presentation/pages/edit_event_page.dart';
-import 'package:todo_app/service_locator.dart';
 
 class EventPage extends StatefulWidget {
   @override
@@ -65,17 +64,17 @@ class _EventPageState extends State<EventPage> {
   }
 
   void getEvents() async {
-    var eventsFeature = locator<GetEventsUseCase>().call();
+    /*var eventsFeature = locator<GetEventsUseCase>().call();
     eventsFeature.then((value) {
       setState(() {
         events = value;
         eventCount = value.length;
       });
-    });
+    });*/
   }
 
   void deleteEvent(EventListEntity event) async {
-    await locator<DeleteEventUseCase>().call(event.id);
+    /*await locator<DeleteEventUseCase>().call(event.id);
     getEvents();
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text("Qeyd silindi"),
@@ -90,12 +89,12 @@ class _EventPageState extends State<EventPage> {
           getEvents();
         },
       ),
-    ));
+    ));*/
   }
 
   void gotoEventAdd() async {
     bool result = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AddEventPage()));
+        context, MaterialPageRoute(builder: (context) => EventAddPage()));
     if (result) {
       getEvents();
     }

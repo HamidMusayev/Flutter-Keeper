@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/domain/entities/task_add_entity.dart';
 import 'package:todo_app/domain/usecases/insert_task_usecase.dart';
-import 'package:todo_app/service_locator.dart';
 
-class AddTaskPage extends StatefulWidget {
+class TaskAddPage extends StatefulWidget {
   @override
-  _AddTaskPageState createState() => _AddTaskPageState();
+  _TaskAddPageState createState() => _TaskAddPageState();
 }
 
-class _AddTaskPageState extends State<AddTaskPage> {
+class _TaskAddPageState extends State<TaskAddPage> {
   String selectedDate = "Tarixi seçin";
   final taskTxt = TextEditingController();
 
@@ -107,11 +106,11 @@ class _AddTaskPageState extends State<AddTaskPage> {
   }
 
   Future<void> _saveTask() async {
-    await locator<InsertTaskUseCase>().call(TaskAddEntity(
+   /* await locator<InsertTaskUseCase>().call(TaskAddEntity(
       name: taskTxt.text,
       date: selectedDate,
       isDone: 0,
-    ));
+    ));*/
     Navigator.pop(context);
   }
 }
