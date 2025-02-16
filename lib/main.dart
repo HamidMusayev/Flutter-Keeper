@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/presentation/pages/home_page.dart';
-import 'package:todo_app/service_locator.dart';
+import 'package:get/get.dart';
+import 'package:todo_app/core/bindings/main_bindings.dart';
+import 'package:todo_app/core/bindings/repository_bindings.dart';
+import 'package:todo_app/presentation/pages/home/home_page.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 Future<void> main() async {
-  setupServiceLocator();
   await initializeDateFormatting('az', null);
   runApp(MyApp());
 }
@@ -12,7 +13,8 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
+      initialBinding: MainBindings(),
       debugShowCheckedModeBanner: false,
       title: 'Keeper',
       theme: ThemeData(fontFamily: "Montserrat"),
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
         DefaultMaterialLocalizations.delegate,
         DefaultWidgetsLocalizations.delegate,
       ],
-      home: MyHomePage(),
+      home: HomePage(),
     );
   }
 }

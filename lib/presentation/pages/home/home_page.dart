@@ -1,36 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:todo_app/core/utils/date_time_utils.dart';
 import 'package:todo_app/presentation/pages/add_event_page.dart';
 import 'package:todo_app/presentation/pages/add_task_page.dart';
 import 'package:todo_app/presentation/pages/event_page.dart';
+import 'package:todo_app/presentation/pages/home/home_controller.dart';
 import 'package:todo_app/presentation/pages/task_page.dart';
 
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
+class HomePage extends GetView<HomeController> {
 
-class _MyHomePageState extends State<MyHomePage> {
-  final PageController _pageController = PageController();
-  double? currentPage = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    _pageController.addListener(() {
-      setState(() {
-        currentPage = _pageController.page;
-      });
-    });
-  }
-
-  String _weekdayNameInAzerbaijani() {
-    return DateFormat.EEEE('az').format(DateTime.now());
-  }
-
-  String _monthNameInAzerbaijani() {
-    return DateFormat.MMMM('az').format(DateTime.now());
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,14 +87,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      _monthNameInAzerbaijani(),
+                      DateTimeUtils.monthName(),
                       style:
                           TextStyle(fontSize: 38, fontWeight: FontWeight.bold),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 2),
                       child: Text(
-                        _weekdayNameInAzerbaijani(),
+                        DateTimeUtils.weekdayName(),
                         style: TextStyle(fontSize: 14, color: Colors.black45),
                       ),
                     ),
