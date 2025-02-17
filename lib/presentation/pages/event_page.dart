@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/domain/entities/event_add_entity.dart';
 import 'package:todo_app/domain/entities/event_list_entity.dart';
-import 'package:todo_app/domain/usecases/delete_event_usecase.dart';
-import 'package:todo_app/domain/usecases/get_events_usecase.dart';
-import 'package:todo_app/domain/usecases/insert_event_usecase.dart';
 import 'package:todo_app/presentation/pages/add_event_page.dart';
 import 'package:todo_app/presentation/pages/edit_event_page.dart';
 
@@ -47,12 +43,12 @@ class _EventPageState extends State<EventPage> {
           ),
           children: [
             ListTile(
-              title: Text("Dəyiş"),
+              title: Text('Dəyiş'),
               leading: Icon(Icons.edit),
               onTap: () => gotoEventEdit(events[position]),
             ),
             ListTile(
-              title: Text("Sil"),
+              title: Text('Sil'),
               leading: Icon(Icons.delete,
                   color: Theme.of(context).colorScheme.secondary),
               onTap: () => deleteEvent(events[position]),

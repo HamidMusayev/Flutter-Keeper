@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todo_app/presentation/pages/add_event_page.dart';
-import 'package:todo_app/presentation/pages/add_task_page.dart';
+import 'package:todo_app/presentation/pages/task_add/task_add_page.dart';
 import 'package:todo_app/presentation/pages/home/home_page.dart';
 
 class AppRoutes {
@@ -14,7 +14,7 @@ class AppRoutes {
 
   static final GetPage unknownRoute = GetPage(
     name: unknown,
-    page: () =>  Container(),
+    page: () => Container(),
   );
 
   static final List<GetPage> routes = [

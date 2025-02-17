@@ -4,3 +4,4 @@ linter:
   rules:
     comma_at_end_of_enum: true
     prefer_trailing_comma: true
+    prefer_single_quotes: true

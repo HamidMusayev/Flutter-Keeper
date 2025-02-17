@@ -25,7 +25,7 @@ class HomeAppbarAction extends StatelessWidget {
             child: CircleAvatar(
               maxRadius: 16,
               backgroundImage: NetworkImage(
-                  "https://musicart.xboxlive.com/7/4d4d6500-0000-0000-0000-000000000002/504/image.jpg"),
+                  'https://musicart.xboxlive.com/7/4d4d6500-0000-0000-0000-000000000002/504/image.jpg'),
             ),
           ),
           Positioned(
@@ -33,7 +33,7 @@ class HomeAppbarAction extends StatelessWidget {
             child: CircleAvatar(
               maxRadius: 20,
               backgroundImage: NetworkImage(
-                  "https://ichef.bbci.co.uk/images/ic/480xn/p0dnxrcv.jpg.webp"),
+                  'https://ichef.bbci.co.uk/images/ic/480xn/p0dnxrcv.jpg.webp'),
             ),
           ),
         ],

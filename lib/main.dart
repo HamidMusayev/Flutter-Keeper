@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todo_app/core/bindings/main_bindings.dart';
-import 'package:todo_app/core/bindings/repository_bindings.dart';
 import 'package:todo_app/core/routes/app_routes.dart';
-import 'package:todo_app/presentation/pages/home/home_page.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 Future<void> main() async {
@@ -18,7 +16,7 @@ class MyApp extends StatelessWidget {
       initialBinding: MainBindings(),
       debugShowCheckedModeBanner: false,
       title: 'Keeper',
-      theme: ThemeData(fontFamily: "Montserrat"),
+      theme: ThemeData(fontFamily: 'Montserrat'),
       localizationsDelegates: [
         DefaultMaterialLocalizations.delegate,
         DefaultWidgetsLocalizations.delegate,

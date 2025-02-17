@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:todo_app/domain/entities/event_add_entity.dart';
-import 'package:todo_app/domain/usecases/insert_event_usecase.dart';
 
 class EventAddPage extends StatefulWidget {
   @override
@@ -9,8 +7,8 @@ class EventAddPage extends StatefulWidget {
 }
 
 class _EventAddPageState extends State<EventAddPage> {
-  String selectedDate = "Tarix seçin";
-  String selectedTime = "Vaxt seçin";
+  String selectedDate = 'Tarix seçin';
+  String selectedTime = 'Vaxt seçin';
   final eventTxt = TextEditingController();
   final descriptionTxt = TextEditingController();
 
@@ -23,7 +21,7 @@ class _EventAddPageState extends State<EventAddPage> {
     );
     if (datepick != null) {
       setState(() {
-        selectedDate = DateFormat("dd-MM-yyyy").format(datepick);
+        selectedDate = DateFormat('dd-MM-yyyy').format(datepick);
       });
     }
   }
@@ -35,7 +33,7 @@ class _EventAddPageState extends State<EventAddPage> {
     );
     if (timepick != null) {
       setState(() {
-        selectedTime = "${timepick.hour}:${timepick.minute}";
+        selectedTime = '${timepick.hour}:${timepick.minute}';
       });
     }
   }
@@ -50,7 +48,7 @@ class _EventAddPageState extends State<EventAddPage> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               SizedBox(height: 24),
-              Text("Yeni hadisə",
+              Text('Yeni hadisə',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32)),
               Divider(height: 24, thickness: 4, indent: 120, endIndent: 120),
               SizedBox(height: 24),
@@ -78,7 +76,7 @@ class _EventAddPageState extends State<EventAddPage> {
       decoration: InputDecoration(
         border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(12))),
-        labelText: "Hadisənin adı",
+        labelText: 'Hadisənin adı',
       ),
     );
   }
@@ -90,7 +88,7 @@ class _EventAddPageState extends State<EventAddPage> {
       decoration: InputDecoration(
         border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(12))),
-        labelText: "Qeydlər",
+        labelText: 'Qeydlər',
       ),
     );
   }
@@ -132,7 +130,7 @@ class _EventAddPageState extends State<EventAddPage> {
   Widget _buildSaveButton() {
     return TextButton(
       onPressed: _saveEvent,
-      child: Text("Yadda saxla"),
+      child: Text('Yadda saxla'),
       style: TextButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
@@ -142,7 +140,7 @@ class _EventAddPageState extends State<EventAddPage> {
   Widget _buildCloseButton() {
     return TextButton(
       onPressed: () => Navigator.of(context).pop(),
-      child: Text("Ləğv et"),
+      child: Text('Ləğv et'),
       style: TextButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/domain/entities/event_list_entity.dart';
-import 'package:todo_app/domain/entities/event_update_entity.dart';
-import 'package:todo_app/domain/usecases/update_event_usecase.dart';
 
 class EditEventPage extends StatefulWidget {
   EventListEntity event;
@@ -37,7 +35,7 @@ class _EditEventPageState extends State<EditEventPage> {
               children: <Widget>[
                 SizedBox(height: 24),
                 Text(
-                  "Hadisəni dəyiş",
+                  'Hadisəni dəyiş',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
                 ),
                 Divider(
@@ -69,7 +67,7 @@ class _EditEventPageState extends State<EditEventPage> {
       decoration: InputDecoration(
           border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(12))),
-          labelText: "Hadisənin adı"),
+          labelText: 'Hadisənin adı'),
     );
   }
 
@@ -80,7 +78,7 @@ class _EditEventPageState extends State<EditEventPage> {
       decoration: InputDecoration(
           border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(12))),
-          labelText: "Qeydlər"),
+          labelText: 'Qeydlər'),
     );
   }
 
@@ -89,7 +87,7 @@ class _EditEventPageState extends State<EditEventPage> {
         onPressed: () {
           updateEvent();
         },
-        child: Text("Yadda saxla"),
+        child: Text('Yadda saxla'),
         style: TextButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -102,7 +100,7 @@ class _EditEventPageState extends State<EditEventPage> {
         onPressed: () {
           Navigator.of(context).pop();
         },
-        child: Text("Ləğv et"),
+        child: Text('Ləğv et'),
         style: TextButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),

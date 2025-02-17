@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:todo_app/core/constants/app_durations.dart';
 import 'package:todo_app/core/routes/app_routes.dart';
 
 class HomeController extends GetxController {
@@ -8,8 +9,7 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
-    pageController
-        .addListener(() => currentPage?.value = pageController.page);
+    pageController.addListener(() => currentPage?.value = pageController.page);
     super.onInit();
   }
 
@@ -22,7 +22,7 @@ class HomeController extends GetxController {
   void onHomeTabPressed(int pageIndex) {
     pageController.animateToPage(
       pageIndex,
-      duration: Duration(milliseconds: 500),
+      duration: AppDurations.d400,
       curve: Curves.easeInOutExpo,
     );
   }
