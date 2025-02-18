@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todo_app/core/constants/app_paddings.dart';
 import 'package:todo_app/core/constants/app_radiuses.dart';
+import 'package:todo_app/core/constants/app_spaces.dart';
 import 'package:todo_app/presentation/pages/home/widgets/task_list/task_list_controller.dart';
 
 class TaskList extends GetView<TaskListController> {
@@ -24,9 +25,18 @@ class TaskList extends GetView<TaskListController> {
                         margin: AppPaddings.p4,
                         alignment: Alignment.centerLeft,
                         padding: EdgeInsets.only(left: 20.0),
-                        child: Icon(
-                          Icons.done,
-                          color: Colors.white,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.done,
+                              color: Colors.white,
+                            ),
+                            AppSpaces.w12,
+                            Text(
+                              'Bitir',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
                         ),
                       )
                     : Container(
@@ -37,9 +47,18 @@ class TaskList extends GetView<TaskListController> {
                         margin: AppPaddings.p4,
                         alignment: Alignment.centerLeft,
                         padding: EdgeInsets.only(left: 20.0),
-                        child: Icon(
-                          Icons.settings_backup_restore_rounded,
-                          color: Colors.white,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.settings_backup_restore_rounded,
+                              color: Colors.white,
+                            ),
+                            AppSpaces.w12,
+                            Text(
+                              'Geri qaytar',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
                         ),
                       ),
                 secondaryBackground: Container(
@@ -49,9 +68,19 @@ class TaskList extends GetView<TaskListController> {
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.only(right: 20.0),
-                  child: Icon(
-                    Icons.delete,
-                    color: Colors.white,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(
+                        Icons.delete,
+                        color: Colors.white,
+                      ),
+                      AppSpaces.w12,
+                      Text(
+                        'Sil',
+                        style: TextStyle(color: Colors.white),
+                      )
+                    ],
                   ),
                 ),
                 confirmDismiss: (direction) =>

@@ -28,6 +28,8 @@ class TaskListController extends GetxController {
   Future<void> deleteTask(TaskListEntity task) async {
     await Get.find<DeleteTaskUseCase>().call(task.id);
 
+    await getTasks();
+
     Get.snackbar(
       backgroundColor: Get.theme.primaryColor,
       colorText: Colors.white,

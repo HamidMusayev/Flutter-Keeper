@@ -4,7 +4,7 @@ import 'package:todo_app/core/constants/app_spaces.dart';
 import 'package:todo_app/core/constants/app_paddings.dart';
 import 'package:todo_app/core/constants/app_radiuses.dart';
 import 'package:todo_app/core/utils/date_time_utils.dart';
-import 'package:todo_app/presentation/pages/event_page.dart';
+import 'package:todo_app/presentation/pages/home/widgets/event_list/event_list.dart';
 import 'package:todo_app/presentation/pages/home/home_controller.dart';
 import 'package:todo_app/presentation/pages/home/widgets/home_appbar_action.dart';
 import 'package:todo_app/presentation/pages/home/widgets/home_tab_button.dart';
@@ -113,7 +113,7 @@ class HomePage extends GetView<HomeController> {
                   controller: controller.pageController,
                   children: [
                     TaskList(),
-                    EventPage(),
+                    EventList(),
                     Container(),
                   ],
                 ),
