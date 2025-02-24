@@ -18,7 +18,7 @@ class HomeController extends GetxController {
         ? Get.toNamed(AppRoutes.taskAdd)
         : pageController.page == 1
             ? Get.toNamed(AppRoutes.eventAdd)
-            : Get.toNamed(AppRoutes.workAdd);
+            : AlertDialog.adaptive();//todo
   }
 
   void onHomeTabPressed(int pageIndex) {

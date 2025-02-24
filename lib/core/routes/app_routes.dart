@@ -11,7 +11,6 @@ class AppRoutes {
   static String home = '/home';
   static String taskAdd = '/task-add';
   static String eventAdd = '/event-add';
-  static String workAdd = '/work-add';
 
   static final GetPage unknownRoute = GetPage(
     name: unknown,
@@ -30,10 +29,6 @@ class AppRoutes {
     GetPage(
       name: eventAdd,
       page: () => EventAddPage(),
-    ),
-    GetPage(
-      name: workAdd,
-      page: () => WorkAddPage(),
     ),
   ];
 }

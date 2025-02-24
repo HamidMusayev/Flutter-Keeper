@@ -11,92 +11,37 @@ class WorkList extends GetView<WorkListController> {
       () => controller.isLoading.value
           ? Center(child: CircularProgressIndicator())
           : ListView.builder(
-              padding: AppPaddings.p16,
-              itemCount: controller.works.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: AppPaddings.p4,
-                  child: ExpansionTile(
-                    shape:
-                        RoundedRectangleBorder(borderRadius: AppRadiuses.r18),
-                    collapsedShape:
-                        RoundedRectangleBorder(borderRadius: AppRadiuses.r18),
-                    backgroundColor: Colors.white,
-                    collapsedBackgroundColor: Colors.white,
-                    title: Text(
-                      controller.works[index].name,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text(
-                      'controller.works[index].description',
-                      style: TextStyle(fontSize: 12),
-                    ),
-                    leading: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('controller.works[index].date'),
-                        Text('controller.works[index].time'),
-                      ],
-                    ),
+            padding: AppPaddings.p16,
+            itemCount: 20,
+            itemBuilder: (context, index) {
+              return Card(
+                margin: AppPaddings.p4,
+                elevation: 0,
+                color: Colors.white,
+                child: ListTile(
+                  onTap: (){},
+                  shape: RoundedRectangleBorder(
+                      borderRadius: AppRadiuses.r18),
+                  title: Text(
+                    controller.works[index].name,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text(
+                    'controller.works[index].description',
+                    style: TextStyle(fontSize: 12),
+                  ),
+                  leading: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Flex(
-                        direction: Axis.horizontal,
-                        children: [
-                          Expanded(
-                            flex: 7,
-                            child: FilledButton.icon(
-                              style: FilledButton.styleFrom(
-                                backgroundColor: Get.theme.primaryColor,
-                                foregroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: AppRadiuses.r18.copyWith(
-                                    topLeft: Radius.zero,
-                                    topRight: Radius.zero,
-                                    bottomRight: Radius.zero,
-                                  ),
-                                ),
-                              ),
-                              label: Text('Dəyiş'),
-                              icon: Icon(
-                                Icons.edit_note_rounded,
-                                size: 24,
-                              ),
-                              onPressed: () {},
-                            ),
-                          ),
-                          Expanded(
-                            flex: 3,
-                            child: TextButton.icon(
-                              style: FilledButton.styleFrom(
-                                backgroundColor: Colors.red.shade600,
-                                foregroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: AppRadiuses.r18.copyWith(
-                                    topLeft: Radius.zero,
-                                    topRight: Radius.zero,
-                                    bottomLeft: Radius.zero,
-                                  ),
-                                ),
-                              ),
-                              label: Text('Sil'),
-                              icon: Icon(
-                                Icons.playlist_remove_rounded,
-                                color: Colors.white,
-                                size: 24,
-                              ),
-                              onPressed: () => controller.deleteWork(
-                                controller.works[index],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      Text('controller.works[index].date'),
+                      Text('controller.works[index].time'),
                     ],
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
+          ),
     );
   }
 }
