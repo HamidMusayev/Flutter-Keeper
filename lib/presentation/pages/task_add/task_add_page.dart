@@ -43,19 +43,13 @@ class TaskAddPage extends GetView<TaskAddController> {
                   ),
                   AppSpaces.h24,
                   OutlinedButton.icon(
-                    onPressed: () => controller.onDatePickPressed(context),
+                    onPressed: () => controller.onDatePickPressed(),
                     icon: Icon(Icons.calendar_today),
                     label: Obx(
-                      () => Text(
-                        controller.pickedDate.value,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      () => Text(controller.pickedDate.value),
                     ),
                   ),
-                  AppSpaces.h32,
+                  AppSpaces.h24,
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -93,16 +87,16 @@ class TaskAddPage extends GetView<TaskAddController> {
                   ),
                   AppSpaces.h50,
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
+                      FilledButton(
+                        onPressed: () => controller.addTask(),
+                        child: Text('Əlavə et'),
+                      ),
+                      AppSpaces.w24,
                       TextButton(
                         onPressed: () => Get.back(),
                         child: Text('Ləğv et'),
                       ),
-                      FilledButton(
-                        onPressed: () => controller.addTask(),
-                        child: Text('Əlavə et'),
-                      )
                     ],
                   ),
                 ],

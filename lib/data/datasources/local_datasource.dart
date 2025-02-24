@@ -22,6 +22,8 @@ class LocalDataSource {
         'CREATE TABLE tasks(id INTEGER PRIMARY KEY, name TEXT, date TEXT, isDone INTEGER)');
     await db.execute(
         'CREATE TABLE events(id INTEGER PRIMARY KEY, name TEXT, description TEXT, date TEXT, time TEXT)');
+    await db.execute(
+        'CREATE TABLE works(id INTEGER PRIMARY KEY, name TEXT, startDate DATETIME, endDate DATETIME)');
   }
 
   static Future<void> add(String table, Map<String, dynamic> data) async {

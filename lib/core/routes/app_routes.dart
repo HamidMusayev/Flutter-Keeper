@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:todo_app/presentation/pages/add_event_page.dart';
+import 'package:todo_app/presentation/pages/event_add/event_add_page.dart';
 import 'package:todo_app/presentation/pages/task_add/task_add_page.dart';
 import 'package:todo_app/presentation/pages/home/home_page.dart';
 
@@ -11,6 +11,7 @@ class AppRoutes {
   static String home = '/home';
   static String taskAdd = '/task-add';
   static String eventAdd = '/event-add';
+  static String workAdd = '/work-add';
 
   static final GetPage unknownRoute = GetPage(
     name: unknown,
@@ -29,6 +30,10 @@ class AppRoutes {
     GetPage(
       name: eventAdd,
       page: () => EventAddPage(),
+    ),
+    GetPage(
+      name: workAdd,
+      page: () => WorkAddPage(),
     ),
   ];
 }

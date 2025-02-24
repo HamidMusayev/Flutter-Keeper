@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:todo_app/domain/entities/task_add_entity.dart';
 import 'package:todo_app/domain/entities/task_list_entity.dart';
 import 'package:todo_app/domain/entities/task_update_entity.dart';
-import 'package:todo_app/domain/usecases/add_task_usecase.dart';
-import 'package:todo_app/domain/usecases/delete_task_usecase.dart';
-import 'package:todo_app/domain/usecases/get_tasks_usecase.dart';
-import 'package:todo_app/domain/usecases/update_task_usecase.dart';
+import 'package:todo_app/domain/usecases/task_add_usecase.dart';
+import 'package:todo_app/domain/usecases/task_delete_usecase.dart';
+import 'package:todo_app/domain/usecases/task_update_usecase.dart';
+import 'package:todo_app/domain/usecases/tasks_get_usecase.dart';
 
 class TaskListController extends GetxController {
   RxBool isLoading = true.obs;
@@ -21,12 +21,12 @@ class TaskListController extends GetxController {
 
   Future<void> getTasks() async {
     isLoading.value = true;
-    tasks = await Get.find<GetTasksUseCase>().call();
+    tasks = await Get.find<TasksGetUseCase>().call();
     isLoading.value = false;
   }
 
   Future<void> deleteTask(TaskListEntity task) async {
-    await Get.find<DeleteTaskUseCase>().call(task.id);
+    await Get.find<TaskDeleteUseCase>().call(task.id);
 
     await getTasks();
 
@@ -45,7 +45,7 @@ class TaskListController extends GetxController {
   }
 
   Future<void> updateTask(TaskListEntity task) async {
-    await Get.find<UpdateTaskUseCase>().call(
+    await Get.find<TaskUpdateUseCase>().call(
       TaskUpdateEntity(
         id: task.id,
         name: task.name,
@@ -56,7 +56,7 @@ class TaskListController extends GetxController {
   }
 
   Future<void> revertDeleteTask(TaskListEntity task) async {
-    await Get.find<AddTaskUseCase>().call(
+    await Get.find<TaskAddUseCase>().call(
       TaskAddEntity(
         name: task.name,
         date: task.date,

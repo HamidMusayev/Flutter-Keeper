@@ -1,9 +1,9 @@
 import 'package:todo_app/data/repositories/event_repository.dart';
 
-class DeleteEventUseCase {
+class EventDeleteUseCase {
   final EventRepository repository;
 
-  DeleteEventUseCase(this.repository);
+  EventDeleteUseCase(this.repository);
 
   Future<void> call(int id) async {
     await repository.delete(id);

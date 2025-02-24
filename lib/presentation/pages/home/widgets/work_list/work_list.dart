@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todo_app/core/constants/app_paddings.dart';
 import 'package:todo_app/core/constants/app_radiuses.dart';
-import 'package:todo_app/presentation/pages/home/widgets/event_list/event_list_controller.dart';
+import 'package:todo_app/presentation/pages/home/widgets/work_list/work_list_controller.dart';
 
-class EventList extends GetView<EventListController> {
+class WorkList extends GetView<WorkListController> {
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -12,7 +12,7 @@ class EventList extends GetView<EventListController> {
           ? Center(child: CircularProgressIndicator())
           : ListView.builder(
               padding: AppPaddings.p16,
-              itemCount: controller.events.length,
+              itemCount: controller.works.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: AppPaddings.p4,
@@ -24,19 +24,19 @@ class EventList extends GetView<EventListController> {
                     backgroundColor: Colors.white,
                     collapsedBackgroundColor: Colors.white,
                     title: Text(
-                      controller.events[index].name,
+                      controller.works[index].name,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     subtitle: Text(
-                      controller.events[index].description,
+                      'controller.works[index].description',
                       style: TextStyle(fontSize: 12),
                     ),
                     leading: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(controller.events[index].date),
-                        Text(controller.events[index].time),
+                        Text('controller.works[index].date'),
+                        Text('controller.works[index].time'),
                       ],
                     ),
                     children: [
@@ -85,8 +85,9 @@ class EventList extends GetView<EventListController> {
                                 color: Colors.white,
                                 size: 24,
                               ),
-                              onPressed: () => controller
-                                  .deleteEvent(controller.events[index]),
+                              onPressed: () => controller.deleteWork(
+                                controller.works[index],
+                              ),
                             ),
                           ),
                         ],

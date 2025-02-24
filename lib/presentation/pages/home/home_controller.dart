@@ -16,7 +16,9 @@ class HomeController extends GetxController {
   void onFabPressed() {
     pageController.page == 0
         ? Get.toNamed(AppRoutes.taskAdd)
-        : Get.toNamed(AppRoutes.eventAdd);
+        : pageController.page == 1
+            ? Get.toNamed(AppRoutes.eventAdd)
+            : Get.toNamed(AppRoutes.workAdd);
   }
 
   void onHomeTabPressed(int pageIndex) {

@@ -9,6 +9,7 @@ import 'package:todo_app/presentation/pages/home/home_controller.dart';
 import 'package:todo_app/presentation/pages/home/widgets/home_appbar_action.dart';
 import 'package:todo_app/presentation/pages/home/widgets/home_tab_button.dart';
 import 'package:todo_app/presentation/pages/home/widgets/task_list/task_list.dart';
+import 'package:todo_app/presentation/pages/home/widgets/work_list/work_list.dart';
 
 class HomePage extends GetView<HomeController> {
   @override
@@ -50,14 +51,11 @@ class HomePage extends GetView<HomeController> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Padding(
-                      padding: AppPaddings.p4,
-                      child: Text(
-                        DateTimeUtils.weekdayName(),
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black45,
-                        ),
+                    Text(
+                      DateTimeUtils.weekdayName(),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black45,
                       ),
                     ),
                   ],
@@ -69,11 +67,16 @@ class HomePage extends GetView<HomeController> {
                   decoration: InputDecoration(
                     hintText: 'Axtarış...',
                     prefixIcon: Icon(Icons.search),
+                    prefixIconColor: Get.theme.primaryColor,
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderRadius: AppRadiuses.r25,
+                      borderRadius: AppRadiuses.r18,
                       borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: AppRadiuses.r18,
+                      borderSide: BorderSide(color: Get.theme.primaryColor),
                     ),
                   ),
                 ),
@@ -114,7 +117,7 @@ class HomePage extends GetView<HomeController> {
                   children: [
                     TaskList(),
                     EventList(),
-                    Container(),
+                    WorkList(),
                   ],
                 ),
               ),

@@ -1,3 +1,4 @@
+import 'package:flutter/src/material/time.dart';
 import 'package:intl/intl.dart';
 
 class DateTimeUtils {
@@ -11,5 +12,13 @@ class DateTimeUtils {
 
   static String dayAndMonthName({DateTime? dateTime, String? locale = 'az'}) {
     return DateFormat('d MMMM y', locale).format(dateTime ??= DateTime.now());
+  }
+
+  static String dayMonthYear({DateTime? dateTime, String? locale = 'az'}) {
+    return DateFormat('dd-MM-yyyy', locale).format(dateTime ??= DateTime.now());
+  }
+
+  static String hourMinute({required TimeOfDay time}) {
+    return '${time.hour}:${time.minute}';
   }
 }

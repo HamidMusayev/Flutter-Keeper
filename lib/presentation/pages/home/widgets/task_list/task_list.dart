@@ -63,7 +63,7 @@ class TaskList extends GetView<TaskListController> {
                       ),
                 secondaryBackground: Container(
                   decoration: BoxDecoration(
-                    color: Colors.red,
+                    color: Colors.red.shade600,
                     borderRadius: AppRadiuses.r18,
                   ),
                   alignment: Alignment.centerRight,

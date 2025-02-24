@@ -2,10 +2,10 @@ import 'package:todo_app/data/mappers/event_mapper.dart';
 import 'package:todo_app/data/repositories/event_repository.dart';
 import 'package:todo_app/domain/entities/event_list_entity.dart';
 
-class GetEventsUseCase {
+class EventsGetUseCase {
   final EventRepository repository;
 
-  GetEventsUseCase(this.repository);
+  EventsGetUseCase(this.repository);
 
   Future<List<EventListEntity>> call() async {
     var events = await repository.get();
